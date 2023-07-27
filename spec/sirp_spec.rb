@@ -167,8 +167,8 @@ describe SIRP do
       xss = 'a606c182e364d2c15f9cdbeeeb63bb00c831d1da65eedc1414f21157d0312a5a'
       xkk = sha_hex(xss, Digest::SHA1)
       expect(xkk).to eq '5844898ea6e5f5d9b737bc0ba2fb9d5edd3f8e67'
-      mm = calc_M(xaa, xbb, xkk, Digest::SHA1)
-      expect(mm).to eq '0c6de5c7892a71bf971d733a511c44940e227941'
+      mm = calc_M(@N, @g, @username, @salt, xaa, xbb, xkk, Digest::SHA1)
+      expect(mm).to eq '9344fca22a7919afd46000e91f137e567e3fdd68'
     end
   end
 

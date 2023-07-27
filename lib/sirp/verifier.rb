@@ -103,6 +103,8 @@ module SIRP
       @B = proof[:B]
       @b = proof[:b].to_i(16)
       v = proof[:v].to_i(16)
+      username = proof[:I]
+      salt = proof[:s]
 
       u = calc_u(@A, @B, @N, hash)
 
@@ -114,7 +116,7 @@ module SIRP
       @K = sha_hex(@S, hash)
 
       # Calculate the 'M' matcher
-      @M = calc_M(@A, @B, @K, hash)
+      @M = calc_M(@N, @g, username, salt, @A, @B, @K, hash)
 
       # Secure constant time comparison, hash the params to ensure
       # that both strings being compared are equal length 32 Byte strings.

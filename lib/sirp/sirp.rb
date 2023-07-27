@@ -146,9 +146,15 @@ module SIRP
     mod_exp((mod_exp(v, u, n) * aa), b, n)
   end
 
-  # M = H(A, B, K)
-  def calc_M(xaa, xbb, xkk, hash_klass)
+  # M = H(H(N) xor H(g), H(I), s, A, B, K)
+  def calc_M(n, g, username, xsalt, xaa, xbb, xkk, hash_klass)
+    hxor = H(hash_klass, n, n) ^ H(hash_klass, n, g)
+
     digester = hash_klass.new
+    
+    digester << hex_to_bytes(num_to_hex(hxor)).pack('C*')
+    digester << hex_to_bytes(sha_str(username, hash_klass)).pack('C*')
+    digester << hex_to_bytes(xsalt).pack('C*')
     digester << hex_to_bytes(xaa).pack('C*')
     digester << hex_to_bytes(xbb).pack('C*')
     digester << hex_to_bytes(xkk).pack('C*')

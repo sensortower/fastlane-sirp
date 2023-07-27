@@ -127,14 +127,14 @@ describe SIRP do
       # S is validated
       ss = '7f44592cc616e0d761b2d3309d513b69b386c35f3ed9b11e6d43f15799b673d6dcfa4117b4456af978458d62ad61e1a37be625f46d2a5bd9a50aae359e4541275f0f4bd4b4caed9d2da224b491231f905d47abd9953179aa608854b84a0e0c6195e73715932b41ab8d0d4a2977e7642163be6802c5907fb9e233b8c96e457314'
 
-      client_M = 'b2c4a9a9cf40fb2db67bbab4ebe36a50223e51e9'
+      client_M = '833f23b2456250c11a050fd01b035febaa91bf76'
       _proof = { A: aa, B: bb, b: @b, I: @username, s: @salt, v: v }
 
       verifier = SIRP::Verifier.new(1024)
       verifier.verify_session(_proof, client_M)
       expect(verifier.M).to eq client_M
       expect(verifier.S).to eq ss
-      expect(verifier.H_AMK).to eq 'a93d906ef5c0a15a8e525da6a271692d2e553c72'
+      expect(verifier.H_AMK).to eq '4adb1a141de1f06e46ef214114a916de5ff3a55f'
     end
   end
 end

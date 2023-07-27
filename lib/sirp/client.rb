@@ -37,8 +37,8 @@ module SIRP
     # @param xbb [String] the server verifier 'B' value in hex
     # @return [String] the client 'M' value in hex
     def process_challenge(username, password, xsalt, xbb)
-      raise ArgumentError, 'username must be a string' unless username.is_a?(String) && !username.empty?
-      raise ArgumentError, 'password must be a string' unless password.is_a?(String) && !password.empty?
+      raise ArgumentError, 'username must be a string' unless username.is_a?(String)
+      raise ArgumentError, 'password must be a string' unless password.is_a?(String)
       raise ArgumentError, 'xsalt must be a string' unless xsalt.is_a?(String)
       raise ArgumentError, 'xsalt must be a hex string' unless xsalt =~ /^[a-fA-F0-9]+$/
       raise ArgumentError, 'xbb must be a string' unless xbb.is_a?(String)
@@ -61,7 +61,8 @@ module SIRP
       @K = sha_hex(@S, hash)
 
       # Calculate the 'M' matcher
-      @M = calc_M(@A, xbb, @K, hash)
+      # @a or @A??
+      @M = calc_M(@N, @g, username, xsalt, @A, xbb, @K, hash)
 
       # Calculate the H(A,M,K) verifier
       @H_AMK = num_to_hex(calc_H_AMK(@A, @M, @K, hash))
