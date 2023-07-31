@@ -112,6 +112,10 @@ module SIRP
     sha_hex(spad + salt + sha_str([username, password].join(':'), hash_klass), hash_klass).hex
   end
 
+  def calc_x_hex(xpassword, xsalt, hash_klass)
+    sha_hex(xsalt + sha_hex("3a" + xpassword, hash_klass), hash_klass).hex
+  end
+
   # Random scrambling parameter
   # u = H(A, B)
   def calc_u(xaa, xbb, n, hash_klass)
@@ -150,15 +154,15 @@ module SIRP
   def calc_M(n, g, username, xsalt, xaa, xbb, xkk, hash_klass)
     hxor = H(hash_klass, n, n) ^ H(hash_klass, n, g)
 
-    digester = hash_klass.new
-    
-    digester << hex_to_bytes(num_to_hex(hxor)).pack('C*')
-    digester << hex_to_bytes(sha_str(username, hash_klass)).pack('C*')
-    digester << hex_to_bytes(xsalt).pack('C*')
-    digester << hex_to_bytes(xaa).pack('C*')
-    digester << hex_to_bytes(xbb).pack('C*')
-    digester << hex_to_bytes(xkk).pack('C*')
-    digester.hexdigest
+    buf = ""
+    buf << num_to_hex(hxor)
+    buf << sha_str(username, hash_klass)
+    buf << xsalt
+    buf << xaa
+    buf << xbb
+    buf << xkk
+
+    hash_klass.hexdigest(hex_to_bytes(buf).pack('C*'))
   end
 
   # H(A, M, K)

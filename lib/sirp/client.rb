@@ -21,7 +21,7 @@ module SIRP
     #
     # @return [String] the value of 'A' in hex
     def start_authentication
-      @a ||= SecureRandom.hex(32).hex
+      @a ||= SecureRandom.hex(256).hex
       @A = num_to_hex(calc_A(@a, @N, @g))
     end
 
@@ -50,7 +50,7 @@ module SIRP
       # SRP-6a safety check
       return false if (bb % @N).zero?
 
-      x = calc_x(username, password, xsalt, hash)
+      x = calc_x_hex(password, xsalt, hash)
       u = calc_u(@A, xbb, @N, hash)
 
       # SRP-6a safety check
