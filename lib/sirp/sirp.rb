@@ -113,7 +113,9 @@ module SIRP
   end
 
   def calc_x_hex(xpassword, xsalt, hash_klass)
-    sha_hex(xsalt + sha_hex("3a" + xpassword, hash_klass), hash_klass).hex
+    raise ArgumentError, 'xpassword must be a hex string' unless xpassword =~ /^[a-fA-F0-9]+$/
+    raise ArgumentError, 'xsalt must be a hex string' unless xsalt =~ /^[a-fA-F0-9]+$/
+    sha_hex(xsalt + sha_hex(":".ord.to_s(16) + xpassword, hash_klass), hash_klass).hex
   end
 
   # Random scrambling parameter

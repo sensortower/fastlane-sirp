@@ -100,6 +100,14 @@ describe SIRP do
     end
   end
 
+  context 'calc_x_hex' do
+    it 'should calculate expected results' do
+      x = calc_x_hex(sha_str(@password, Digest::SHA1), @salt, Digest::SHA1)
+      expect(('%x' % x)).to eq 'df9e191c7566592db9d09f7f3b46a16b0d782966'
+      expect(('%b' % x).length).to eq 160
+    end
+  end
+
   context 'calc_u' do
     it 'should calculate expected results' do
       aa = 'b1c4827b0ce416953789db123051ed990023f43b396236b86e12a2c69638fb8e'
