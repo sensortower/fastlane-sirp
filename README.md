@@ -165,7 +165,7 @@ client and server interaction is something left up to the implementer and likely
 different in every case.
 
 ```ruby
-require 'sirp'
+require 'fastlane-sirp'
 
 username     = 'user'
 password     = 'password'

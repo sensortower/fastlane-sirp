@@ -11,7 +11,7 @@ else
   require 'coco'
 end
 
-require 'sirp'
+require 'fastlane-sirp'
 
 # Monkey-patch Client and Verifier classes for testing convenience
 module SIRP
