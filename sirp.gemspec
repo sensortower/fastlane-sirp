@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sirp/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'sirp'
+  spec.name          = 'fastlane-sirp'
   spec.version       = SIRP::VERSION
-  spec.authors       = ['Glenn Rempe', 'lamikae']
-  spec.email         = ['glenn@rempe.us']
+  spec.authors       = ['Glenn Rempe', 'lamikae', 'snatchev', 'joshdholtz']
+  spec.email         = ['me@joshholtz.com']
 
   spec.required_ruby_version = '>= 2.1.0'
 
